@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hatem Alkhatib | Computer Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset & Variables ─────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:   #F5F0E8;
+      --ink:     #111111;
+      --accent:  #1A56DB;
+      --muted:   #6B6B6B;
+      --card:    #FFFFFF;
+      --border:  #E2DDD6;
+      --hover:   #EAE6DD;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ── Custom Cursor ─────────────────────────────── */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+      opacity: 0.6;
+    }
+    body:hover #cursor-ring { opacity: 1; }
+    a:hover ~ #cursor-ring, a:hover + #cursor-ring { width: 56px; height: 56px; }
+
+    /* ── Nav ───────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(245,240,232,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; letter-spacing: 0.02em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.02; letter-spacing: -0.01em;
+      color: var(--ink);
+      opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-tagline {
+      margin-top: 1.8rem; max-width: 520px;
+      font-size: 1.15rem; line-height: 1.7; color: var(--muted); font-weight: 300;
+      opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+    }
+    .hero-cta {
+      margin-top: 2.8rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
+    }
+    .btn-primary {
+      display: inline-block; padding: 0.85rem 2rem;
+      background: var(--ink); color: var(--cream);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block; padding: 0.85rem 2rem;
+      border: 1.5px solid var(--ink); color: var(--ink);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { background: var(--hover); transform: translateY(-2px); }
+
+    /* decorative grid lines */
+    .hero-deco {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 45%; opacity: 0.06;
+      background-image: repeating-linear-gradient(0deg, var(--ink) 0, var(--ink) 1px, transparent 1px, transparent 60px),
+                        repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 1px, transparent 1px, transparent 60px);
+      pointer-events: none;
+      animation: fadeIn 1s 0.8s both;
+    }
+
+    /* ── Section Wrapper ───────────────────────────── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1; margin-bottom: 2.5rem; color: var(--ink);
+    }
+    .divider {
+      border: none; border-top: 1px solid var(--border); margin: 0;
+    }
+
+    /* ── About ─────────────────────────────────────── */
+    #about { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about-photo-wrap {
+      position: relative;
+    }
+    .about-photo-placeholder {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #d4cfc7 0%, #bbb5ab 100%);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 5rem; color: rgba(255,255,255,0.5);
+      letter-spacing: -0.02em;
+      overflow: hidden;
+    }
+    .about-photo-placeholder img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .about-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      background: var(--accent); color: white;
+      padding: 1.2rem 1.5rem; border-radius: 2px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; text-align: center; line-height: 1.5;
+    }
+    .about-text p {
+      font-size: 1.05rem; line-height: 1.85; color: #444; margin-bottom: 1.4rem; font-weight: 300;
+    }
+    .about-text p strong { color: var(--ink); font-weight: 600; }
+    .skills-list {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.8rem;
+    }
+    .skill-tag {
+      padding: 0.4rem 0.9rem; background: var(--cream);
+      border: 1px solid var(--border); border-radius: 2px;
+      font-size: 0.78rem; font-weight: 500; color: var(--ink); letter-spacing: 0.04em;
+    }
+
+    /* ── Experience ────────────────────────────────── */
+    #experience { background: var(--cream); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 3rem; padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-date {
+      font-size: 0.8rem; font-weight: 500; color: var(--muted);
+      letter-spacing: 0.06em; padding-top: 0.25rem;
+    }
+    .exp-content h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; margin-bottom: 0.3rem;
+    }
+    .exp-content .exp-company {
+      font-size: 0.85rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.9rem;
+    }
+    .exp-content ul { list-style: none; padding: 0; }
+    .exp-content ul li {
+      font-size: 0.95rem; color: #555; line-height: 1.7; margin-bottom: 0.4rem; font-weight: 300;
+      padding-left: 1.2rem; position: relative;
+    }
+    .exp-content ul li::before {
+      content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem;
+      top: 0.35rem;
+    }
+
+    /* ── Projects ──────────────────────────────────── */
+    #projects { background: var(--ink); color: var(--cream); }
+    #projects .section-title { color: var(--cream); }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5px; background: rgba(255,255,255,0.08);
+    }
+    .project-card {
+      background: var(--ink); padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.25s;
+    }
+    .project-card:hover { background: #1c1c1c; }
+    .project-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--cream);
+    }
+    .project-card p { font-size: 0.9rem; line-height: 1.7; color: rgba(245,240,232,0.55); font-weight: 300; }
+    .project-tag {
+      display: inline-block; margin-top: 1.2rem; margin-right: 0.4rem;
+      padding: 0.3rem 0.7rem; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 2px; font-size: 0.72rem; color: rgba(245,240,232,0.6); letter-spacing: 0.06em;
+    }
+
+    /* ── Programs ──────────────────────────────────── */
+    #programs { background: var(--cream); }
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .program-card {
+      padding: 2rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .program-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+    .program-card .program-org {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .program-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .program-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+    /* ── Footer ────────────────────────────────────── */
+    footer {
+      background: var(--ink); color: rgba(245,240,232,0.5);
+      padding: 3rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-copy {
+      font-size: 0.8rem; line-height: 1.6;
+    }
+    .footer-copy strong { color: var(--cream); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.8rem; color: rgba(245,240,232,0.5); text-decoration: none;
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── Animations ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 0.06; }
+    }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-badge { right: 0; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { padding: 2.5rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="nav-logo">H. Alkhatib</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="mailto:Hatemkhatib005@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-deco"></div>
+    <p class="hero-eyebrow">Computer Science &amp; Software Engineering</p>
+    <h1 class="hero-name">Hatem<br><em>Alkhatib</em></h1>
+    <p class="hero-tagline">
+      BS Computer Science student at CUNY College of Staten Island. Software engineering intern at Capital One and JPMorgan Chase. Building things that matter.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="mailto:Hatemkhatib005@gmail.com" class="btn-outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <div class="about-photo-placeholder">HA</div>
+        <div class="about-badge">CUNY CSI<br>Class of 2026</div>
+      </div>
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Student. Engineer.<br>Problem Solver.</h2>
+        <p>
+          I'm <strong>Hatem Alkhatib</strong>, a Computer Science student at CUNY College of Staten Island with a minor in Cybersecurity &amp; Networking, graduating December 2026.
+        </p>
+        <p>
+          I've interned at <strong>Capital One</strong> and <strong>JPMorgan Chase</strong> building backend systems, data pipelines, and scalable software. I care about writing clean, efficient code that solves real problems.
+        </p>
+        <p>
+          Outside of internships I'm part of CUNY Tech Prep, ColorStack, and was invited to Walmart Global Tech's national engineering summit.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">Data Structures</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- Experience -->
+  <section id="experience">
+    <p class="section-label">Work Experience</p>
+    <h2 class="section-title">Where I've Worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-date">May 2025 – Aug 2025</div>
+        <div class="exp-content">
+          <h3>Software Engineering Intern</h3>
+          <p class="exp-company">Capital One &mdash; New York, NY</p>
+          <ul>
+            <li>Built and enhanced backend services using Python and object-oriented design for internal financial applications.</li>
+            <li>Developed data pipelines to process and analyze large datasets, improving system efficiency and data accuracy.</li>
+            <li>Collaborated in Agile sprints to design, implement, and optimize scalable software solutions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">May 2024 – Aug 2024</div>
+        <div class="exp-content">
+          <h3>Software Engineering Intern</h3>
+          <p class="exp-company">JPMorgan Chase &amp; Co. &mdash; New York, NY</p>
+          <ul>
+            <li>Engineered a Python financial data pipeline, reducing manual processing and improving throughput.</li>
+            <li>Analyzed datasets to support internal decision-making and improve tool efficiency.</li>
+            <li>Optimized algorithms and enhanced performance reliability across internal applications.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- Projects -->
+  <section id="projects">
+    <p class="section-label" style="color:rgba(245,240,232,0.5);">Technical Projects</p>
+    <h2 class="section-title">Things I've Built</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Soccer Player Statistics Manager</h3>
+        <p>A C++ application using OOP and STL containers to analyze player statistics, increasing data visibility by 40%. Implemented sorting and searching algorithms for fast data retrieval.</p>
+        <span class="project-tag">C++</span>
+        <span class="project-tag">OOP</span>
+        <span class="project-tag">STL</span>
+        <span class="project-tag">Algorithms</span>
+      </div>
+      <div class="project-card">
+        <h3>Student Database System</h3>
+        <p>Designed a normalized MySQL schema paired with a Python CRUD interface to manage student records while enforcing data integrity at every layer.</p>
+        <span class="project-tag">MySQL</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Databases</span>
+      </div>
+      <div class="project-card">
+        <h3>Full Stack Web Apps</h3>
+        <p>Developing full-stack applications through CUNY Tech Prep using React, Node.js, and SQL with deployment on AWS.</p>
+        <span class="project-tag">React</span>
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">SQL</span>
+        <span class="project-tag">AWS</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- Programs -->
+  <section id="programs">
+    <p class="section-label">Programs &amp; Community</p>
+    <h2 class="section-title">Fellowships &amp; Involvement</h2>
+    <div class="programs-grid">
+      <div class="program-card">
+        <p class="program-org">CUNY Tech Prep</p>
+        <h3>Software Engineering Fellow</h3>
+        <p>Developing full-stack applications with React, Node.js, and SQL. Deploying on AWS. April 2025 – Present.</p>
+      </div>
+      <div class="program-card">
+        <p class="program-org">Walmart Global Tech</p>
+        <h3>Engineering Summit Invitee</h3>
+        <p>Selected nationally for an engineering summit in Bentonville, AR covering AI, cloud, high-scale systems, and distributed computing.</p>
+      </div>
+      <div class="program-card">
+        <p class="program-org">ColorStack</p>
+        <h3>Technical Member</h3>
+        <p>Engaging in mock interviews, workshops, and recruiting events to prepare students for software engineering roles. 2025 – Present.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-copy">
+      <strong>Hatem Alkhatib</strong><br>
+      &copy; 2012 All Rights Reserved. New York, NY &nbsp;|&nbsp; Hatemkhatib005@gmail.com
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#programs">Programs</a>
+      <a href="https://www.linkedin.com/in/hatemalkhatib" target="_blank">LinkedIn</a>
+      <a href="mailto:Hatemkhatib005@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Cursor grow on links/buttons
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width  = '56px';
+        ring.style.height = '56px';
+        ring.style.opacity = '1';
+        dot.style.transform = 'translate(-50%, -50%) scale(1.8)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width  = '36px';
+        ring.style.height = '36px';
+        ring.style.opacity = '0.6';
+        dot.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.exp-item, .project-card, .program-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

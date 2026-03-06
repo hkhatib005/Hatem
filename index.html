@@ -9,6 +9,31 @@
 </head>
 <body>
 
+  <nav class="navbar">
+  <a href="#" class="nav-logo">H. Alkhatib</a>
+  
+  <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li class="dropdown">
+      <a href="#experience">Experience ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="#experience">Work History</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#programs">Programs</a></li>
+      </ul>
+    </li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="mailto:Hatemkhatib005@gmail.com">Contact</a></li>
+  </ul>
+</nav>
   <!-- Custom Cursor -->
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>

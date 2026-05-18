@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Requirements Document | Hatem Alkhatib</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #F5F0E8;
+            color: #111111;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #1A56DB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .document {
+            background: white;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 42px;
+            color: #1A56DB;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6B6B6B;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #111111;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1A56DB;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #1A56DB;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        strong {
+            color: #1A56DB;
+        }
+
+        .info-box {
+            background: #E8F0FE;
+            padding: 20px;
+            border-left: 4px solid #1A56DB;
+            margin: 30px 0;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .project-item {
+            background: #F5F0E8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #1A56DB;
+        }
+
+        .project-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #E2DDD6;
+        }
+
+        th {
+            background: #1A56DB;
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-doc {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #E2DDD6;
+            color: #6B6B6B;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .document {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+        <div class="document">
+            <h1>Project Requirements Document</h1>
+            <p class="subtitle">Personal Portfolio Website with Interactive Web Applications</p>
+
+            <div class="info-box">
+                <p><strong>Student:</strong> Hatem Alkhatib</p>
+                <p><strong>Course:</strong> Web Technologies</p>
+                <p><strong>Semester:</strong> Spring 2026</p>
+                <p><strong>Project Goal:</strong> Create a professional portfolio website showcasing technical skills through interactive JavaScript applications</p>
+            </div>
+
+            <h2>1. Project Overview</h2>
+            <p>
+                This portfolio website serves as a comprehensive showcase of my web development skills acquired throughout the semester. 
+                The site demonstrates proficiency in HTML5, CSS3, JavaScript, responsive design, and deployment practices while 
+                presenting my professional experience and technical projects in an accessible, user-friendly format.
+            </p>
+
+            <h2>2. Technical Requirements</h2>
+
+            <h3>2.1 Web Hosting & Deployment</h3>
+            <ul>
+                <li><strong>Platform:</strong> GitHub Pages</li>
+                <li><strong>Live URL:</strong> https://hkhatib005.github.io/Hatem/</li>
+                <li><strong>Version Control:</strong> Git/GitHub for all source code</li>
+                <li><strong>Deployment Method:</strong> Automatic deployment via GitHub Pages from main branch</li>
+            </ul>
+
+            <h3>2.2 Navigation System</h3>
+            <ul>
+                <li><strong>CSS Navigation Menu:</strong> Fixed navigation bar at top of site</li>
+                <li><strong>Menu Features:</strong>
+                    <ul>
+                        <li>Dropdown menu for Projects section</li>
+                        <li>Smooth scroll navigation to page sections</li>
+                        <li>Mobile-responsive hamburger menu</li>
+                        <li>Hover effects and transitions</li>
+                    </ul>
+                </li>
+                <li><strong>Color Scheme:</strong> Blue (#1A56DB) and Cream (#F5F0E8) theme consistent across site</li>
+            </ul>
+
+            <h3>2.3 Required Content Sections</h3>
+            <ul>
+                <li>Home/Hero section with introduction</li>
+                <li>About section with skills and background</li>
+                <li>Work Experience timeline (Capital One, JPMorgan Chase internships)</li>
+                <li>Web Applications showcase (all semester projects)</li>
+                <li>Technical Projects portfolio</li>
+                <li>Programs & Community involvement</li>
+                <li>Footer with copyright information</li>
+            </ul>
+
+            <h2>3. JavaScript Web Applications</h2>
+            <p>The following interactive applications were developed and deployed as part of this project:</p>
+
+            <div class="project-list">
+                <div class="project-item">
+                    <strong>1. Auto Image Slider</strong>
+                    <p>Interactive carousel with auto-play, manual controls, dot indicators, and thumbnail navigation</p>
+                </div>
+                <div class="project-item">
+                    <strong>2. MPG Calculator</strong>
+                    <p>Miles per gallon calculator with real-time validation and fuel efficiency calculations</p>
+                </div>
+                <div class="project-item">
+                    <strong>3. Invoice Calculator</strong>
+                    <p>Professional invoice generator with dynamic rows, tax calculations, and automatic totals</p>
+                </div>
+                <div class="project-item">
+                    <strong>4. Mortgage Calculator</strong>
+                    <p>Home loan payment calculator using compound interest formulas and number formatting</p>
+                </div>
+            </div>
+
+            <h3>3.1 JavaScript Concepts Demonstrated</h3>
+            <ul>
+                <li><strong>Variables & Data Types:</strong> let, const, var declarations</li>
+                <li><strong>Functions:</strong> Function declarations, arrow functions, callback functions</li>
+                <li><strong>Control Flow:</strong> if/else statements, for loops, while loops</li>
+                <li><strong>DOM Manipulation:</strong> getElementById, querySelector, classList methods</li>
+                <li><strong>Event Handling:</strong> onclick, oninput, addEventListener</li>
+                <li><strong>Mathematical Operations:</strong> Formulas for MPG, mortgage payments, tax calculations</li>
+                <li><strong>String Manipulation:</strong> Number formatting, substring operations</li>
+                <li><strong>Form Validation:</strong> Input validation, error handling, user feedback</li>
+            </ul>
+
+            <h2>4. Design Specifications</h2>
+
+            <h3>4.1 Visual Design</h3>
+            <ul>
+                <li><strong>Typography:</strong> DM Serif Display (headings), DM Sans (body text)</li>
+                <li><strong>Color Palette:</strong>
+                    <ul>
+                        <li>Primary: #1A56DB (Blue)</li>
+                        <li>Background: #F5F0E8 (Cream)</li>
+                        <li>Text: #111111 (Ink Black)</li>
+                        <li>Muted: #6B6B6B (Gray)</li>
+                    </ul>
+                </li>
+                <li><strong>Layout:</strong> Clean, professional design with ample white space</li>
+                <li><strong>Custom Features:</strong> Custom cursor effect with dot and ring</li>
+            </ul>
+
+            <h3>4.2 Responsive Design</h3>
+            <ul>
+                <li>Mobile-first approach with breakpoint at 768px</li>
+                <li>Hamburger menu for mobile navigation</li>
+                <li>Flexible grid layouts that adapt to screen size</li>
+                <li>Touch-friendly button sizes and spacing</li>
+                <li>Optimized images and performance</li>
+            </ul>
+
+            <h2>5. Image Implementation</h2>
+            <ul>
+                <li><strong>Home Page:</strong> Auto image slider featuring 4+ professional images</li>
+                <li><strong>Slider Features:</strong> Auto-play (4-second intervals), manual navigation, thumbnails</li>
+                <li><strong>CSS Animations:</strong> Smooth fade-in transitions between slides</li>
+                <li><strong>Responsive Images:</strong> Images scale appropriately for different screen sizes</li>
+            </ul>
+
+            <h2>6. Footer Requirements</h2>
+            <ul>
+                <li>Copyright notice: © 2026 Hatem Alkhatib. All Rights Reserved.</li>
+                <li>Contact information: Email and location</li>
+                <li>Navigation links to key sections</li>
+                <li>Social media links (LinkedIn, GitHub)</li>
+                <li>Professional attribution and branding</li>
+            </ul>
+
+            <h2>7. File Structure</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>index.html</td>
+                        <td>Main portfolio homepage</td>
+                    </tr>
+                    <tr>
+                        <td>styles.css</td>
+                        <td>Main stylesheet with all CSS</td>
+                    </tr>
+                    <tr>
+                        <td>script.js</td>
+                        <td>JavaScript for navigation and interactions</td>
+                    </tr>
+                    <tr>
+                        <td>image-slider.html</td>
+                        <td>Auto image slider application</td>
+                    </tr>
+                    <tr>
+                        <td>invoice-calculator.html</td>
+                        <td>Invoice calculator application</td>
+                    </tr>
+                    <tr>
+                        <td>mortgage-calculator.html</td>
+                        <td>Mortgage calculator application</td>
+                    </tr>
+                    <tr>
+                        <td>requirements.html</td>
+                        <td>This requirements document</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>8. Quality Assurance</h2>
+
+            <h3>8.1 Testing Requirements</h3>
+            <ul>
+                <li>Cross-browser testing (Chrome, Firefox, Safari, Edge)</li>
+                <li>Mobile responsiveness testing on iOS and Android</li>
+                <li>All calculator functions tested with various inputs</li>
+                <li>Navigation links verified to work correctly</li>
+                <li>Image slider auto-play and controls tested</li>
+                <li>Form validation and error handling tested</li>
+            </ul>
+
+            <h3>8.2 Performance Standards</h3>
+            <ul>
+                <li>Fast page load times (under 3 seconds)</li>
+                <li>Smooth animations (60fps)</li>
+                <li>No console errors in browser developer tools</li>
+                <li>Accessible navigation for keyboard users</li>
+            </ul>
+
+            <h2>9. Success Criteria</h2>
+            <p>The project will be considered complete when all of the following are achieved:</p>
+            <ul>
+                <li>✅ Site is fully hosted and accessible via GitHub Pages URL</li>
+                <li>✅ CSS navigation menu present on all pages with working links</li>
+                <li>✅ All 4+ JavaScript applications are functional and accessible</li>
+                <li>✅ Image slider with auto-play implemented on home page</li>
+                <li>✅ Requirements document linked and accessible from site</li>
+                <li>✅ Copyright footer present on all pages</li>
+                <li>✅ Professional design consistent across entire site</li>
+                <li>✅ Fully responsive on mobile, tablet, and desktop</li>
+                <li>✅ All code validated and error-free</li>
+            </ul>
+
+            <h2>10. Future Enhancements</h2>
+            <p>Potential improvements for future iterations:</p>
+            <ul>
+                <li>Add contact form with email integration</li>
+                <li>Implement dark mode toggle</li>
+                <li>Add more interactive projects (weather app, to-do list)</li>
+                <li>Integrate with backend API for dynamic content</li>
+                <li>Add analytics tracking</li>
+                <li>Implement blog section for technical writing</li>
+            </ul>
+
+            <div class="footer-doc">
+                <p><strong>Document Version:</strong> 1.0</p>
+                <p><strong>Last Updated:</strong> May 2026</p>
+                <p><strong>Author:</strong> Hatem Alkhatib</p>
+                <p><strong>Email:</strong> Hatemkhatib005@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hatem Alkhatib | Computer Science</title>
+  <title>Hatem Alkhatib | Computer Science Portfolio</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 </head>
@@ -33,21 +33,25 @@
           <a href="#about" class="nav-link">About</a>
         </li>
         <li class="nav-item dropdown">
-          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#" class="nav-link">Projects</a>
           <ul class="dropdown-menu">
-            <li><a href="#experience">Work History</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#programs">Programs</a></li>
+            <li><a href="image-slider.html">Image Slider</a></li>
+            <li><a href="../MPGCAL/MilesPerGallonCalculator.html">MPG Calculator</a></li>
+            <li><a href="invoice-calculator.html">Invoice Calculator</a></li>
+            <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#experience" class="nav-link">Experience</a>
         </li>
         <li class="nav-item">
-          <a href="#programs" class="nav-link">Programs</a>
+          <a href="#web-apps" class="nav-link">Web Apps</a>
         </li>
         <li class="nav-item">
-          <a href="/cdn-cgi/l/email-protection#afe7cedbcac2c4c7cedbc6cd9f9f9aefc8c2cec6c381ccc0c2" class="nav-link nav-cta">Contact</a>
+          <a href="requirements.html" class="nav-link">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a href="mailto:Hatemkhatib005@gmail.com" class="nav-link nav-cta">Contact</a>
         </li>
       </ul>
     </div>
@@ -62,8 +66,8 @@
       BS Computer Science student at CUNY College of Staten Island. Software engineering intern at Capital One and JPMorgan Chase. Building things that matter.
     </p>
     <div class="hero-cta">
-      <a href="#experience" class="btn-primary">View Experience</a>
-      <a href="/cdn-cgi/l/email-protection#f6be9782939b9d9e97829f94c6c6c3b6919b979f9ad895999b" class="btn-outline">Get in Touch</a>
+      <a href="#web-apps" class="btn-primary">View Web Apps</a>
+      <a href="mailto:Hatemkhatib005@gmail.com" class="btn-outline">Get in Touch</a>
     </div>
   </section>
 
@@ -102,6 +106,63 @@
           <span class="skill-tag">OOP</span>
           <span class="skill-tag">Data Structures</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- Web Applications Section -->
+  <section id="web-apps">
+    <p class="section-label" style="color:rgba(245,240,232,0.5);">Interactive Web Applications</p>
+    <h2 class="section-title">JavaScript Projects Built This Semester</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🖼️</div>
+        <h3>Auto Image Slider</h3>
+        <p>Interactive image carousel with auto-play, manual controls, dot indicators, and thumbnail navigation. Features smooth CSS animations and responsive design.</p>
+        <div style="margin-top: 15px;">
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">CSS Animations</span>
+          <span class="project-tag">DOM Manipulation</span>
+        </div>
+        <a href="image-slider.html" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">⛽</div>
+        <h3>MPG Calculator</h3>
+        <p>Miles per gallon calculator with real-time input validation and visual feedback. Calculates fuel efficiency based on miles traveled and gallons used.</p>
+        <div style="margin-top: 15px;">
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Form Validation</span>
+          <span class="project-tag">Math Operations</span>
+        </div>
+        <a href="../MPGCAL/MilesPerGallonCalculator.html" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📄</div>
+        <h3>Invoice Calculator</h3>
+        <p>Professional invoice generator with automatic calculations. Features dynamic row addition, tax calculation, and real-time totals using JavaScript functions.</p>
+        <div style="margin-top: 15px;">
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Dynamic Forms</span>
+          <span class="project-tag">Calculations</span>
+        </div>
+        <a href="invoice-calculator.html" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏠</div>
+        <h3>Mortgage Calculator</h3>
+        <p>Home mortgage payment calculator using compound interest formulas. Calculates monthly payments based on loan amount, interest rate, and loan term.</p>
+        <div style="margin-top: 15px;">
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Financial Formulas</span>
+          <span class="project-tag">Number Formatting</span>
+        </div>
+        <a href="mortgage-calculator.html" class="project-link">View Project →</a>
       </div>
     </div>
   </section>
@@ -148,7 +209,7 @@
   <!-- Projects -->
   <section id="projects">
     <p class="section-label" style="color:rgba(245,240,232,0.5);">Technical Projects</p>
-    <h2 class="section-title">Things I've Built</h2>
+    <h2 class="section-title">Other Things I've Built</h2>
     <div class="projects-grid">
       <div class="project-card">
         <h3>Soccer Player Statistics Manager</h3>
@@ -201,14 +262,25 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer with Copyright -->
   <footer>
     <div class="footer-copy">
       <strong>Hatem Alkhatib</strong><br>
-      &copy; 2012 All Rights Reserved. New York, NY &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cd4fde8f9f1f7f4fde8f5feacaca9dcfbf1fdf5f0b2fff3f1">[email&#160;protected]</a>
+      Computer Science Student | CUNY College of Staten Island<br>
+      &copy; 2026 Hatem Alkhatib. All Rights Reserved.<br>
+      New York, NY | <a href="mailto:Hatemkhatib005@gmail.com" style="color: inherit;">Hatemkhatib005@gmail.com</a>
     </div>
     <div class="footer-links">
       <a href="#about">About</a>
+      <a href="#web-apps">Web Applications</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
-      <a href="#programs">Programs</a>
+      <a href="requirements.html">Requirements Document</a>
+      <a href="https://www.linkedin.com/in/hatemalkhatib" target="_blank">LinkedIn</a>
+      <a href="https://github.com/hkhatib005" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

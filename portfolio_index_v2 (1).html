@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hatem Alkhatib | Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080c10;
+      --bg2: #0d1117;
+      --bg3: #161b22;
+      --bg4: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --text3: #484f58;
+      --blue: #58a6ff;
+      --blue2: #1f6feb;
+      --green: #3fb950;
+      --purple: #bc8cff;
+      --orange: #d29922;
+      --red: #f85149;
+      --accent: #388bfd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100; padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; color: var(--blue); text-decoration: none; font-weight: 500;
+    }
+    .nav-logo span { color: var(--text2); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-status {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .nav-status::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 80px 2rem 4rem; position: relative;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; color: var(--blue); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-eyebrow::before { content: '//'; color: var(--text3); }
+    h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 800; line-height: 1.05;
+      margin-bottom: 1.25rem; letter-spacing: -1.5px;
+    }
+    h1 .blue { color: var(--blue); }
+    .hero-sub {
+      font-size: 17px; color: var(--text2);
+      max-width: 520px; margin-bottom: 2rem; line-height: 1.75;
+    }
+    .hero-sub strong { color: var(--text); }
+    .hero-btns { display: flex; gap: 12px; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue2); color: #fff;
+      padding: 10px 22px; border-radius: 8px;
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      border: 1px solid var(--blue); transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); padding: 10px 22px;
+      border-radius: 8px; text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); }
+    .hero-stats {
+      display: flex; gap: 2rem; margin-bottom: 2rem;
+    }
+    .stat-item { }
+    .stat-num {
+      font-size: 28px; font-weight: 800; color: var(--text);
+      font-family: 'JetBrains Mono', monospace; line-height: 1;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hero-tags span {
+      font-size: 11px; padding: 4px 10px; border-radius: 20px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text2); font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PHOTO */
+    .hero-photo-wrap {
+      position: relative; flex-shrink: 0;
+    }
+    .hero-photo {
+      width: 240px; height: 240px; border-radius: 50%;
+      object-fit: cover; border: 3px solid var(--border);
+      position: relative; z-index: 1;
+      filter: grayscale(10%);
+    }
+    .hero-photo-ring {
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--blue2), var(--purple), var(--green), var(--blue2));
+      z-index: 0; animation: spin 8s linear infinite; opacity: 0.6;
+    }
+    .hero-photo-bg {
+      position: absolute; inset: -4px; border-radius: 50%;
+      background: var(--bg); z-index: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; position: relative; }
+    .section-alt { background: var(--bg2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--blue); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 32px; font-weight: 700; margin-bottom: 2.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; align-items: start; }
+    .about-text { font-size: 15px; color: var(--text2); line-height: 1.85; }
+    .about-text p { margin-bottom: 1rem; }
+    .about-text strong { color: var(--text); }
+    .skill-group { margin-bottom: 1.25rem; }
+    .skill-label-sm {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text3); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tags span {
+      font-size: 12px; padding: 3px 10px; border-radius: 6px;
+      background: var(--bg4); border: 1px solid var(--border);
+      color: var(--text); font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .exp-card:hover { border-color: var(--blue2); }
+    .exp-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;
+    }
+    .exp-company { font-size: 17px; font-weight: 600; }
+    .exp-role { font-size: 13px; color: var(--blue); margin-top: 2px; }
+    .exp-meta { text-align: right; }
+    .exp-date { font-size: 13px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
+    .exp-loc { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .exp-bullets li {
+      font-size: 14px; color: var(--text2); padding-left: 16px;
+      position: relative; line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--blue);
+    }
+    .exp-bullets li strong { color: var(--text); }
+    .exp-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .exp-tool {
+      font-size: 11px; padding: 2px 8px; border-radius: 20px;
+      background: var(--bg4); border: 1px solid var(--border);
+      color: var(--text2); font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { border-color: var(--blue2); transform: translateY(-2px); }
+    .project-card.featured { border-color: rgba(31,111,235,0.4); }
+    .project-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 10px; gap: 8px;
+    }
+    .project-name { font-size: 16px; font-weight: 600; }
+    .project-links { display: flex; gap: 8px; flex-shrink: 0; }
+    .project-link {
+      font-size: 11px; color: var(--blue); text-decoration: none;
+      border: 1px solid rgba(31,111,235,0.3); padding: 3px 10px;
+      border-radius: 20px; transition: background 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .project-link:hover { background: rgba(31,111,235,0.1); }
+    .project-desc {
+      font-size: 13px; color: var(--text2); line-height: 1.7;
+      margin-bottom: 1rem; flex: 1;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .project-tags span {
+      font-size: 11px; padding: 2px 8px; border-radius: 6px;
+      background: var(--bg4); border: 1px solid var(--border);
+      color: var(--text2); font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PROGRAMS */
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .program-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .program-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .program-role { font-size: 13px; color: var(--blue); margin-bottom: 4px; }
+    .program-date {
+      font-size: 12px; color: var(--text3); margin-bottom: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .program-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+    /* CONTACT */
+    .contact-inner { text-align: center; }
+    .contact-sub { font-size: 16px; color: var(--text2); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .contact-link {
+      color: var(--blue); text-decoration: none; font-size: 14px;
+      border: 1px solid var(--border); padding: 10px 24px;
+      border-radius: 8px; transition: border-color 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .contact-link:hover { border-color: var(--blue); }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem; text-align: center;
+      font-size: 12px; color: var(--text3);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+
+    /* PILLARS */
+    .hero-pillars {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .pillar {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text2); font-weight: 500;
+    }
+    .pillar-icon { font-size: 14px; }
+    .pillar-div { color: var(--border); font-size: 16px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+      .exp-header { flex-direction: column; }
+      .exp-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="nav-logo">hatem<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">available for roles</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">software engineer</div>
+      <h1>Hatem<br/><span class="blue">Alkhatib</span></h1>
+      <p class="hero-sub">
+        SWE Intern at <strong>Walmart Global Tech</strong> building microservices at 2B requests/month scale.
+        Previously at <strong>JPMorgan Chase</strong>. Building AI tools people actually use.
+      </p>
+      <div class="hero-pillars">
+        <div class="pillar"><span class="pillar-icon">⚙</span>Backend</div>
+        <div class="pillar-div">/</div>
+        <div class="pillar"><span class="pillar-icon">🎨</span>Frontend</div>
+        <div class="pillar-div">/</div>
+        <div class="pillar"><span class="pillar-icon">🔗</span>Full Stack</div>
+        <div class="pillar-div">/</div>
+        <div class="pillar"><span class="pillar-icon">🚀</span>Deployment</div>
+        <div class="pillar-div">/</div>
+        <div class="pillar"><span class="pillar-icon">🏗</span>System Design</div>
+      </div>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="mailto:hatem.n.alkhatib@gmail.com" class="btn-secondary">Get in Touch</a>
+      </div>
+      <div class="hero-tags">
+        <span>Java</span><span>Spring Boot</span><span>Python</span><span>C++</span>
+        <span>React</span><span>Node.js</span><span>AWS</span>
+        <span>Redis</span><span>Grafana</span><span>Prometheus</span>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring"></div>
+      <div class="hero-photo-bg"></div>
+      <img
+        src="hatem.jpg"
+        alt="Hatem Alkhatib"
+        class="hero-photo"
+        onerror="this.style.display='none'"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-alt" id="about">
+  <div class="section-inner">
+    <div class="section-label">// about</div>
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Computer Science student at <strong>CUNY College of Staten Island</strong> (graduating Spring 2027) with a minor in Cybersecurity and Networking. Right now I'm at <strong>Walmart Global Tech</strong> in New York, building a UUIDv7-based identity microservice for their Contact Center Platform that processes roughly 2 billion customer interactions a month.</p>
+        <p>Before that I was at <strong>JPMorgan Chase</strong> building Python financial data pipelines. I use Grafana, Prometheus, and Splunk day to day to monitor production systems and troubleshoot issues at scale.</p>
+        <p>Outside of work I build things that solve real problems. Dolphin Planner is used by 500+ students at my school. SmartApply helps CS students get jobs faster. I like projects where I can see people actually using what I built.</p>
+      </div>
+      <div class="about-skills">
+        <div class="skill-group">
+          <div class="skill-label-sm">Languages</div>
+          <div class="skill-tags"><span>Java</span><span>Python</span><span>C++</span><span>JavaScript</span><span>SQL</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label-sm">Frameworks</div>
+          <div class="skill-tags"><span>Spring Boot</span><span>React</span><span>Node.js</span><span>Express</span><span>Flask</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label-sm">Tools</div>
+          <div class="skill-tags"><span>AWS</span><span>Redis</span><span>PostgreSQL</span><span>Grafana</span><span>Prometheus</span><span>Splunk</span><span>Git</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label-sm">Concepts</div>
+          <div class="skill-tags"><span>Distributed Systems</span><span>Microservices</span><span>Observability</span><span>CI/CD</span><span>Data Pipelines</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label-sm">Certifications</div>
+          <div class="skill-tags"><span>GIAC Cybersecurity</span><span>Google AI Fundamentals</span><span>Walmart Dev Bootcamp</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">// experience</div>
+    <h2>Work Experience</h2>
+    <div class="exp-list">
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Walmart Global Tech</div>
+            <div class="exp-role">Software Engineering Intern</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">June 2026 - Present</div>
+            <div class="exp-loc">New York, NY</div>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built a <strong>UUIDv7-based identity microservice</strong> for Walmart's Contact Center Platform, processing <strong>2B customer interactions per month</strong>; chose UUIDv7 over v4 to improve database lookup performance through time-ordered indexing</li>
+          <li>Owned the service end to end across a platform of <strong>34 microservices</strong>, from design and implementation to production deployment on distributed cloud infrastructure</li>
+          <li>Monitored production deployments using <strong>Grafana, Prometheus, and Splunk</strong> to validate service health, track latency, and troubleshoot issues in real time</li>
+          <li>Ship production features in two-week Agile sprints with peer code reviews and automated CI/CD pipelines</li>
+        </ul>
+        <div class="exp-tools">
+          <span class="exp-tool">Java</span><span class="exp-tool">Spring Boot</span>
+          <span class="exp-tool">Grafana</span><span class="exp-tool">Prometheus</span>
+          <span class="exp-tool">Splunk</span><span class="exp-tool">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">JPMorgan Chase &amp; Co.</div>
+            <div class="exp-role">Software Engineering Intern</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">May 2024 - Aug 2024</div>
+            <div class="exp-loc">New York, NY</div>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built a <strong>Python pipeline</strong> that automated a financial data workflow the team was doing manually, cutting down processing time and freeing the team to focus on higher value work</li>
+          <li>Analyzed financial datasets to help the team make faster decisions on internal tooling</li>
+          <li>Refactored algorithms across internal tools to reduce runtime on high frequency operations</li>
+        </ul>
+        <div class="exp-tools">
+          <span class="exp-tool">Python</span><span class="exp-tool">Data Pipelines</span><span class="exp-tool">SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section-alt" id="projects">
+  <div class="section-inner">
+    <div class="section-label">// projects</div>
+    <h2>What I've Built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="project-header">
+          <div class="project-name">Dolphin Planner</div>
+          <div class="project-links">
+            <a href="https://dolphin-planner.onrender.com" target="_blank" class="project-link">Live</a>
+            <a href="https://github.com/hkhatib005/Dolphin-Planner" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Full-stack course planning tool used by <strong style="color:#e6edf3">500+ CUNY Staten Island students</strong>. Weekly schedule builder with real-time conflict detection algorithm I wrote from scratch. Claude API powers on-demand professor review summaries.</p>
+        <div class="project-tags"><span>React</span><span>Node.js</span><span>SQLite</span><span>Claude API</span></div>
+      </div>
+
+      <div class="project-card featured">
+        <div class="project-header">
+          <div class="project-name">AI Code Review Bot</div>
+          <div class="project-links">
+            <a href="https://ai-review-dashboard-urro.onrender.com" target="_blank" class="project-link">Live</a>
+            <a href="https://github.com/hkhatib005/ai-code-review-bot" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">GitHub Action that triggers on every PR, sends the diff to Claude, and posts inline review comments automatically. Paired with a Flask observability dashboard tracking review history and PR stats in real time.</p>
+        <div class="project-tags"><span>Python</span><span>Flask</span><span>Claude API</span><span>GitHub Actions</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Real-Time Stock Pipeline</div>
+          <div class="project-links">
+            <a href="https://github.com/hkhatib005/stock-pipeline" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Data pipeline pulling live stock prices every 60 seconds into a Redis queue, persisted to PostgreSQL, served via REST API with a live dashboard. Each layer independently scalable.</p>
+        <div class="project-tags"><span>Python</span><span>Redis</span><span>PostgreSQL</span><span>Flask</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">SmartApply</div>
+          <div class="project-links">
+            <a href="https://smartapply-4etc.onrender.com" target="_blank" class="project-link">Live</a>
+            <a href="https://github.com/hkhatib005/smartapply" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Upload your resume PDF and paste a job description — get an AI match score, missing keywords, and a tailored cover letter. Built for CS students actively applying for roles.</p>
+        <div class="project-tags"><span>Python</span><span>Flask</span><span>Claude API</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="section-inner">
+    <div class="section-label">// programs</div>
+    <h2>Programs</h2>
+    <div class="programs-grid">
+      <div class="program-card">
+        <div class="program-name">CUNY Tech Prep</div>
+        <div class="program-role">Software Engineering Fellow</div>
+        <div class="program-date">Apr 2025 - May 2026</div>
+        <p class="program-desc">Competitive fellowship building full-stack apps with React, Node.js, and SQL, deployed on AWS.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-name">ColorStack</div>
+        <div class="program-role">Technical Member</div>
+        <div class="program-date">2025 - Present</div>
+        <p class="program-desc">Mock interviews, technical workshops, and recruiting prep with CS students breaking into top companies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-alt" id="contact">
+  <div class="section-inner contact-inner">
+    <div class="section-label">// contact</div>
+    <h2>Get in Touch</h2>
+    <p class="contact-sub">Open to new grad and internship opportunities. Feel free to reach out.</p>
+    <div class="contact-links">
+      <a href="mailto:hatem.n.alkhatib@gmail.com" class="contact-link">email</a>
+      <a href="https://www.linkedin.com/in/hatemalkhatib" target="_blank" class="contact-link">linkedin</a>
+      <a href="https://github.com/hkhatib005" target="_blank" class="contact-link">github</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>hatem alkhatib &copy; 2026 &middot; new york, ny</p>
+</footer>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#e6edf3' : '';
+    });
+  });
+
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.exp-card, .project-card, .program-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

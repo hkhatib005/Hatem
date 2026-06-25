@@ -84,8 +84,7 @@
     }
     .hero-inner {
       max-width: 1100px; margin: 0 auto; width: 100%;
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 4rem; align-items: center;
+      display: block; max-width: 700px;
     }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -298,6 +297,50 @@
     }
 
 
+
+    /* TYPING ANIMATION */
+    .typing-wrap { display: inline-block; }
+    .typing-cursor {
+      display: inline-block; width: 3px; height: 0.85em;
+      background: var(--blue); margin-left: 4px;
+      vertical-align: middle; animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* PARTICLE CANVAS */
+    #particles {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: 0.35;
+    }
+
+    /* HERO CONTENT above canvas */
+    .hero, nav { position: relative; z-index: 1; }
+    section { position: relative; z-index: 1; }
+
+    /* COUNTER ANIMATION */
+    .count-up { font-family: "JetBrains Mono", monospace; color: var(--blue); }
+
+    /* GLOW on hero name */
+    h1 .blue {
+      text-shadow: 0 0 40px rgba(88,166,255,0.3);
+    }
+
+    /* SLIDE UP for hero content */
+    .hero-content > * {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: slideUp 0.6s ease forwards;
+    }
+    .hero-eyebrow { animation-delay: 0.1s !important; }
+    h1 { animation-delay: 0.2s !important; }
+    .hero-sub { animation-delay: 0.35s !important; }
+    .hero-pillars { animation-delay: 0.45s !important; }
+    .hero-btns { animation-delay: 0.55s !important; }
+    .hero-tags { animation-delay: 0.65s !important; }
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* PILLARS */
     .hero-pillars {
       display: flex; align-items: center; gap: 10px;
@@ -309,6 +352,36 @@
     }
     .pillar-icon { font-size: 14px; }
     .pillar-div { color: var(--border); font-size: 16px; }
+
+
+    /* FEATURED */
+    .featured-card {
+      display: flex; gap: 2rem; align-items: flex-start;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+    .featured-card:hover { border-color: var(--blue2); }
+    .featured-logo {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px; font-weight: 600; color: var(--blue);
+      background: var(--bg4); border: 1px solid var(--border);
+      padding: 8px 14px; border-radius: 8px; white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .featured-title {
+      font-size: 16px; font-weight: 600; margin-bottom: 8px; line-height: 1.4;
+    }
+    .featured-desc {
+      font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 12px;
+    }
+    .featured-link {
+      font-size: 12px; color: var(--blue); text-decoration: none;
+      font-family: "JetBrains Mono", monospace;
+      border: 1px solid rgba(31,111,235,0.3); padding: 4px 12px;
+      border-radius: 20px; transition: background 0.2s; display: inline-block;
+    }
+    .featured-link:hover { background: rgba(31,111,235,0.1); }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -324,6 +397,7 @@
 </head>
 <body>
 
+<canvas id="particles"></canvas>
 <nav>
   <a href="#home" class="nav-logo">hatem<span>.dev</span></a>
   <ul class="nav-links">
@@ -366,16 +440,7 @@
         <span>Redis</span><span>Grafana</span><span>Prometheus</span>
       </div>
     </div>
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-ring"></div>
-      <div class="hero-photo-bg"></div>
-      <img
-        src="hatem.jpg"
-        alt="Hatem Alkhatib"
-        class="hero-photo"
-        onerror="this.style.display='none'"
-      />
-    </div>
+
   </div>
 </section>
 
@@ -550,6 +615,22 @@
   </div>
 </section>
 
+<!-- FEATURED -->
+<section id="featured">
+  <div class="section-inner">
+    <div class="section-label">// press</div>
+    <h2>Featured In</h2>
+    <div class="featured-card">
+      <div class="featured-logo">CSI Today</div>
+      <div class="featured-content">
+        <div class="featured-title">CSI Student Hatem Alkhatib Selected for Prestigious Walmart Global Tech Sophomore Summit</div>
+        <div class="featured-desc">Featured for being nationally selected among top CS students for Walmart Global Tech's engineering summit focused on AI, cloud, high-scale systems, and distributed computing.</div>
+        <a href="https://csitoday.com/2025/05/csi-student-hatem-alkhatib-selected-for-prestigious-walmart-global-tech-sophomore-summit/" target="_blank" class="featured-link">Read Article</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="section-alt" id="contact">
   <div class="section-inner contact-inner">
@@ -569,7 +650,87 @@
 </footer>
 
 <script>
-  // Active nav highlight on scroll
+  // ---- PARTICLES ----
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, dots = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 60; i++) {
+    dots.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, W, H);
+    dots.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > W) d.vx *= -1;
+      if (d.y < 0 || d.y > H) d.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(88,166,255,0.6)';
+      ctx.fill();
+    });
+    // draw lines between close dots
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = i + 1; j < dots.length; j++) {
+        const dx = dots[i].x - dots[j].x;
+        const dy = dots[i].y - dots[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.strokeStyle = `rgba(88,166,255,${0.15 * (1 - dist/120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // ---- TYPING ANIMATION on hero sub ----
+  const phrases = [
+    'Building at 2B requests/month scale.',
+    'Distributed systems. Microservices. AI.',
+    'Grafana. Prometheus. Splunk.',
+    'Java. Python. React. Spring Boot.',
+  ];
+  let pi = 0, ci = 0, deleting = false, pause = 0;
+  const heroSub = document.querySelector('.hero-sub');
+  const staticText = 'SWE Intern at <strong>Walmart Global Tech</strong>. ';
+
+  function typeWriter() {
+    if (pause > 0) { pause--; setTimeout(typeWriter, 50); return; }
+    const phrase = phrases[pi];
+    if (!deleting) {
+      ci++;
+      heroSub.innerHTML = staticText + phrase.slice(0, ci) + '<span class="typing-cursor"></span>';
+      if (ci === phrase.length) { deleting = true; pause = 40; }
+    } else {
+      ci--;
+      heroSub.innerHTML = staticText + phrase.slice(0, ci) + '<span class="typing-cursor"></span>';
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 10; }
+    }
+    setTimeout(typeWriter, deleting ? 30 : 55);
+  }
+  setTimeout(typeWriter, 1200);
+
+  // ---- NAV HIGHLIGHT ----
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
@@ -582,7 +743,7 @@
     });
   });
 
-  // Fade in on scroll
+  // ---- FADE IN ON SCROLL ----
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -592,7 +753,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.exp-card, .project-card, .program-card').forEach(el => {
+  document.querySelectorAll('.exp-card, .project-card, .program-card, .featured-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';

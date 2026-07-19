@@ -109,6 +109,13 @@
     .hero {
       min-height: 100vh; display: flex; align-items: center;
       padding: 80px 2rem 4rem; position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -10%; right: -10%;
+      width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(31,111,235,0.16), transparent 70%);
+      pointer-events: none; z-index: 0;
     }
     .hero-inner {
       max-width: 700px; margin: 0 auto; width: 100%;
@@ -298,29 +305,9 @@
 
 
 
-    /* TYPING ANIMATION */
-    .typing-wrap { display: inline-block; }
-    .typing-cursor {
-      display: inline-block; width: 3px; height: 0.85em;
-      background: var(--blue); margin-left: 4px;
-      vertical-align: middle; animation: blink 1s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    /* PARTICLE CANVAS */
-    #particles {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none; opacity: 0.35;
-    }
-
-    /* HERO CONTENT above canvas */
+    /* HERO CONTENT layering */
     .hero, nav { position: relative; z-index: 1; }
     section { position: relative; z-index: 1; }
-
-    /* GLOW on hero name */
-    h1 .blue {
-      text-shadow: 0 0 40px rgba(88,166,255,0.3);
-    }
 
     /* SLIDE UP for hero content */
     .hero-content > * {
@@ -331,24 +318,11 @@
     .hero-eyebrow { animation-delay: 0.1s !important; }
     h1 { animation-delay: 0.2s !important; }
     .hero-sub { animation-delay: 0.35s !important; }
-    .hero-pillars { animation-delay: 0.45s !important; }
-    .hero-btns { animation-delay: 0.55s !important; }
-    .hero-tags { animation-delay: 0.65s !important; }
+    .hero-btns { animation-delay: 0.5s !important; }
+    .hero-tags { animation-delay: 0.6s !important; }
     @keyframes slideUp {
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /* PILLARS */
-    .hero-pillars {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 2rem; flex-wrap: wrap;
-    }
-    .pillar {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 13px; color: var(--text2); font-weight: 500;
-    }
-    .pillar-icon { font-size: 14px; }
-    .pillar-div { color: var(--border); font-size: 16px; }
 
 
     /* FEATURED */
@@ -404,7 +378,6 @@
 </head>
 <body>
 
-<canvas id="particles"></canvas>
 <nav>
   <a href="#home" class="nav-logo">hatem<span>.dev</span></a>
   <ul class="nav-links">
@@ -429,17 +402,6 @@
         SWE Intern at <strong>Walmart Global Tech</strong> building microservices at 20M requests/month scale.
         Previously at <strong>JPMorgan Chase</strong>. Building AI tools people actually use.
       </p>
-      <div class="hero-pillars">
-        <div class="pillar"><span class="pillar-icon">⚙</span>Backend</div>
-        <div class="pillar-div">/</div>
-        <div class="pillar"><span class="pillar-icon">🎨</span>Frontend</div>
-        <div class="pillar-div">/</div>
-        <div class="pillar"><span class="pillar-icon">🔗</span>Full Stack</div>
-        <div class="pillar-div">/</div>
-        <div class="pillar"><span class="pillar-icon">🚀</span>Deployment</div>
-        <div class="pillar-div">/</div>
-        <div class="pillar"><span class="pillar-icon">🏗</span>System Design</div>
-      </div>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">View Projects</a>
         <a href="mailto:hatem.n.alkhatib@gmail.com" class="btn-secondary">Get in Touch</a>
@@ -691,86 +653,6 @@
 </footer>
 
 <script>
-  // ---- PARTICLES ----
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let W, H, dots = [];
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  for (let i = 0; i < 60; i++) {
-    dots.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5
-    });
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, W, H);
-    dots.forEach(d => {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0 || d.x > W) d.vx *= -1;
-      if (d.y < 0 || d.y > H) d.vy *= -1;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(88,166,255,0.6)';
-      ctx.fill();
-    });
-    // draw lines between close dots
-    for (let i = 0; i < dots.length; i++) {
-      for (let j = i + 1; j < dots.length; j++) {
-        const dx = dots[i].x - dots[j].x;
-        const dy = dots[i].y - dots[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 120) {
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.strokeStyle = `rgba(88,166,255,${0.15 * (1 - dist/120)})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-
-  // ---- TYPING ANIMATION on hero sub ----
-  const phrases = [
-    'Building at 20M requests/month scale.',
-    'Distributed systems. Microservices. AI.',
-    'Grafana. Prometheus. Splunk.',
-    'Java. Python. React. Spring Boot.',
-  ];
-  let pi = 0, ci = 0, deleting = false, pause = 0;
-  const heroSub = document.querySelector('.hero-sub');
-  const staticText = 'SWE Intern at <strong>Walmart Global Tech</strong>. ';
-
-  function typeWriter() {
-    if (pause > 0) { pause--; setTimeout(typeWriter, 50); return; }
-    const phrase = phrases[pi];
-    if (!deleting) {
-      ci++;
-      heroSub.innerHTML = staticText + phrase.slice(0, ci) + '<span class="typing-cursor"></span>';
-      if (ci === phrase.length) { deleting = true; pause = 40; }
-    } else {
-      ci--;
-      heroSub.innerHTML = staticText + phrase.slice(0, ci) + '<span class="typing-cursor"></span>';
-      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 10; }
-    }
-    setTimeout(typeWriter, deleting ? 30 : 55);
-  }
-  setTimeout(typeWriter, 1200);
-
   // ---- MOBILE NAV TOGGLE ----
   const navToggle = document.getElementById('navToggle');
   const navLinksList = document.querySelector('.nav-links');

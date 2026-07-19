@@ -4,6 +4,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hatem Alkhatib | Software Engineer</title>
+  <meta name="description" content="Hatem Alkhatib — Software Engineer building distributed systems and microservices. SWE Intern at Walmart Global Tech, previously JPMorgan Chase."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Hatem Alkhatib | Software Engineer"/>
+  <meta property="og:description" content="SWE Intern at Walmart Global Tech building microservices at 20M requests/month scale. Previously at JPMorgan Chase."/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Hatem Alkhatib | Software Engineer"/>
+  <meta name="twitter:description" content="SWE Intern at Walmart Global Tech building microservices at 20M requests/month scale. Previously at JPMorgan Chase."/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='700' fill='%2358a6ff' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E"/>
   <!-- Google Fonts: Inter for UI, JetBrains Mono for code/labels -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -63,8 +71,13 @@
     }
     .nav-logo span { color: var(--text2); }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; transition: color 0.2s; position: relative; }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -8px;
+      height: 2px; background: var(--blue);
+    }
     .nav-status {
       display: flex; align-items: center; gap: 6px;
       font-size: 12px; color: var(--green);
@@ -78,6 +91,19 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
     }
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 32px; height: 32px; padding: 0; flex-direction: column;
+      justify-content: center; align-items: center; gap: 5px;
+    }
+    .nav-toggle span {
+      display: block; width: 20px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* HERO */
     .hero {
@@ -85,8 +111,8 @@
       padding: 80px 2rem 4rem; position: relative;
     }
     .hero-inner {
-      max-width: 1100px; margin: 0 auto; width: 100%;
-      display: block; max-width: 700px;
+      max-width: 700px; margin: 0 auto; width: 100%;
+      display: block;
     }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -120,44 +146,12 @@
       font-size: 14px; font-weight: 500; transition: border-color 0.2s;
     }
     .btn-secondary:hover { border-color: var(--blue); }
-    .hero-stats {
-      display: flex; gap: 2rem; margin-bottom: 2rem;
-    }
-    .stat-item { }
-    .stat-num {
-      font-size: 28px; font-weight: 800; color: var(--text);
-      font-family: 'JetBrains Mono', monospace; line-height: 1;
-    }
-    .stat-num span { color: var(--blue); }
-    .stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
     .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .hero-tags span {
       font-size: 11px; padding: 4px 10px; border-radius: 20px;
       background: var(--bg3); border: 1px solid var(--border);
       color: var(--text2); font-family: 'JetBrains Mono', monospace;
     }
-
-    /* PHOTO */
-    .hero-photo-wrap {
-      position: relative; flex-shrink: 0;
-    }
-    .hero-photo {
-      width: 240px; height: 240px; border-radius: 50%;
-      object-fit: cover; border: 3px solid var(--border);
-      position: relative; z-index: 1;
-      filter: grayscale(10%);
-    }
-    .hero-photo-ring {
-      position: absolute; inset: -8px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, var(--blue2), var(--purple), var(--green), var(--blue2));
-      z-index: 0; animation: spin 8s linear infinite; opacity: 0.6;
-    }
-    .hero-photo-bg {
-      position: absolute; inset: -4px; border-radius: 50%;
-      background: var(--bg); z-index: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* SECTIONS */
     section { padding: 5rem 2rem; position: relative; }
@@ -195,9 +189,9 @@
     .exp-card {
       background: var(--bg3); border: 1px solid var(--border);
       border-radius: 12px; padding: 1.5rem;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
-    .exp-card:hover { border-color: var(--blue2); }
+    .exp-card:hover { border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
     .exp-header {
       display: flex; justify-content: space-between;
       align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;
@@ -235,7 +229,7 @@
       transition: border-color 0.2s, transform 0.2s;
       display: flex; flex-direction: column;
     }
-    .project-card:hover { border-color: var(--blue2); transform: translateY(-2px); }
+    .project-card:hover { border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
     .project-card.featured { border-color: rgba(31,111,235,0.4); }
     .project-header {
       display: flex; justify-content: space-between;
@@ -269,7 +263,9 @@
     .program-card {
       background: var(--bg3); border: 1px solid var(--border);
       border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
+    .program-card:hover { border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
     .program-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
     .program-role { font-size: 13px; color: var(--blue); margin-bottom: 4px; }
     .program-date {
@@ -283,12 +279,14 @@
     .contact-sub { font-size: 16px; color: var(--text2); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
     .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
     .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
       color: var(--blue); text-decoration: none; font-size: 14px;
       border: 1px solid var(--border); padding: 10px 24px;
-      border-radius: 8px; transition: border-color 0.2s;
+      border-radius: 8px; transition: border-color 0.2s, transform 0.2s, background 0.2s;
       font-family: 'JetBrains Mono', monospace;
     }
-    .contact-link:hover { border-color: var(--blue); }
+    .contact-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .contact-link:hover { border-color: var(--blue); transform: translateY(-2px); background: rgba(31,111,235,0.08); }
 
     /* FOOTER */
     footer {
@@ -318,9 +316,6 @@
     /* HERO CONTENT above canvas */
     .hero, nav { position: relative; z-index: 1; }
     section { position: relative; z-index: 1; }
-
-    /* COUNTER ANIMATION */
-    .count-up { font-family: "JetBrains Mono", monospace; color: var(--blue); }
 
     /* GLOW on hero name */
     h1 .blue {
@@ -363,7 +358,7 @@
       border-radius: 12px; padding: 1.75rem;
       transition: border-color 0.2s;
     }
-    .featured-card:hover { border-color: var(--blue2); }
+    .featured-card:hover { border-color: var(--blue2); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
     .featured-logo {
       font-family: "JetBrains Mono", monospace;
       font-size: 13px; font-weight: 600; color: var(--blue);
@@ -387,11 +382,21 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-photo-wrap { display: none; }
       .about-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .hero-stats { gap: 1.5rem; }
+      .nav-status { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        flex-direction: column; position: fixed; top: 56px; left: 0; right: 0;
+        background: rgba(8,12,16,0.98); backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border); padding: 0.5rem 2rem; gap: 0;
+        transform: translateY(-8px); opacity: 0; pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 14px 0; font-size: 15px; border-bottom: 1px solid var(--border); }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links a.active::after { display: none; }
       .exp-header { flex-direction: column; }
       .exp-meta { text-align: left; }
     }
@@ -409,6 +414,9 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-status">available for roles</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -418,7 +426,7 @@
       <div class="hero-eyebrow">software engineer</div>
       <h1>Hatem<br/><span class="blue">Alkhatib</span></h1>
       <p class="hero-sub">
-        SWE Intern at <strong>Walmart Global Tech</strong> building microservices at 2B requests/month scale.
+        SWE Intern at <strong>Walmart Global Tech</strong> building microservices at 20M requests/month scale.
         Previously at <strong>JPMorgan Chase</strong>. Building AI tools people actually use.
       </p>
       <div class="hero-pillars">
@@ -453,7 +461,7 @@
     <h2>About Me</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>I'm a Computer Science student at <strong>CUNY College of Staten Island</strong> (graduating Spring 2027) with a minor in Cybersecurity and Networking. Right now I'm at <strong>Walmart Global Tech</strong> in New York, building a UUIDv7-based identity microservice for their Contact Center Platform that processes roughly 2 billion customer interactions a month.</p>
+        <p>I'm a Computer Science student at <strong>CUNY College of Staten Island</strong> (graduating Spring 2027) with a minor in Cybersecurity and Networking. Right now I'm at <strong>Walmart Global Tech</strong> in New York, building a UUIDv7-based identity microservice for their Contact Center Platform that processes roughly 20 million customer interactions a month.</p>
         <p>Before that I was at <strong>JPMorgan Chase</strong> building Python financial data pipelines. I use Grafana, Prometheus, and Splunk day to day to monitor production systems and troubleshoot issues at scale.</p>
         <p>Outside of work I build things that solve real problems. Dolphin Planner is used by 500+ students at my school. SmartApply helps CS students get jobs faster. I like projects where I can see people actually using what I built.</p>
       </div>
@@ -501,7 +509,7 @@
           </div>
         </div>
         <ul class="exp-bullets">
-          <li>Built a <strong>UUIDv7-based identity microservice</strong> for Walmart's Contact Center Platform, processing <strong>2B customer interactions per month</strong>; chose UUIDv7 over v4 to improve database lookup performance through time-ordered indexing</li>
+          <li>Built a <strong>UUIDv7-based identity microservice</strong> for Walmart's Contact Center Platform, processing <strong>20M customer interactions per month</strong>; chose UUIDv7 over v4 to improve database lookup performance through time-ordered indexing</li>
           <li>Owned the service end to end across a platform of <strong>34 microservices</strong>, from design and implementation to production deployment on distributed cloud infrastructure</li>
           <li>Monitored production deployments using <strong>Grafana, Prometheus, and Splunk</strong> to validate service health, track latency, and troubleshoot issues in real time</li>
           <li>Ship production features in two-week Agile sprints with peer code reviews and automated CI/CD pipelines</li>
@@ -591,6 +599,28 @@
         <div class="project-tags"><span>Python</span><span>Flask</span><span>Claude API</span></div>
       </div>
 
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">DealBox</div>
+          <div class="project-links">
+            <a href="https://github.com/hkhatib005/Dealbox" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Wholesale real-estate deal-matching platform. Wholesalers submit "buy boxes" (price range, location, deal type) and incoming properties auto-match against them in real time, with a nationwide Leaflet map view and an admin dashboard.</p>
+        <div class="project-tags"><span>React</span><span>Flask</span><span>SQLAlchemy</span><span>JWT</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Park Ave Jewelers</div>
+          <div class="project-links">
+            <a href="https://github.com/hkhatib005/Park-Ave-Repo" target="_blank" class="project-link">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Full-stack e-commerce storefront built for a real client. Product catalog, Stripe Checkout, Google Sign-In, and an admin dashboard for managing orders and inventory.</p>
+        <div class="project-tags"><span>React</span><span>Vite</span><span>Express</span><span>SQLite</span><span>Stripe</span><span>Google OAuth</span></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -640,9 +670,18 @@
     <h2>Get in Touch</h2>
     <p class="contact-sub">Open to new grad and internship opportunities. Feel free to reach out.</p>
     <div class="contact-links">
-      <a href="mailto:hatem.n.alkhatib@gmail.com" class="contact-link">email</a>
-      <a href="https://www.linkedin.com/in/hatemalkhatib" target="_blank" class="contact-link">linkedin</a>
-      <a href="https://github.com/hkhatib005" target="_blank" class="contact-link">github</a>
+      <a href="mailto:hatem.n.alkhatib@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+        email
+      </a>
+      <a href="https://www.linkedin.com/in/hatemalkhatib" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2 3.76-2 4.02 0 4.76 2.6 4.76 6V21h-4v-5.6c0-1.34-.02-3.07-1.88-3.07-1.88 0-2.17 1.46-2.17 2.97V21H9z"/></svg>
+        linkedin
+      </a>
+      <a href="https://github.com/hkhatib005" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2Z"/></svg>
+        github
+      </a>
     </div>
   </div>
 </section>
@@ -707,7 +746,7 @@
 
   // ---- TYPING ANIMATION on hero sub ----
   const phrases = [
-    'Building at 2B requests/month scale.',
+    'Building at 20M requests/month scale.',
     'Distributed systems. Microservices. AI.',
     'Grafana. Prometheus. Splunk.',
     'Java. Python. React. Spring Boot.',
@@ -732,6 +771,22 @@
   }
   setTimeout(typeWriter, 1200);
 
+  // ---- MOBILE NAV TOGGLE ----
+  const navToggle = document.getElementById('navToggle');
+  const navLinksList = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksList.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinksList.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksList.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
   // ---- NAV HIGHLIGHT ----
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -741,7 +796,7 @@
       if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
     });
     navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? '#e6edf3' : '';
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
   });
 
